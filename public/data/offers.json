@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "EASYWORK",
+    "description": "the ideal solution for businesses and workers",
+    "image": "https://images.pexels.com/photos/935977/pexels-photo-935977.jpeg"
+  },
+  {
+    "id": 2,
+    "title": "EASYSCHOOL",
+    "description": "the ideal solution for all parents",
+    "image": "https://images.pexels.com/photos/936120/pexels-photo-936120.jpeg"
+  },
+  {
+    "id": 3,
+    "title": "EASYFLASH",
+    "description": "your reliable and confidential parcel and letter delivery service available in Douala and Yaoundé",
+    "image": "https://images.pexels.com/photos/3760067/pexels-photo-3760067.jpeg"
+  },
+  {
+    "id": 4,
+    "title": "EASYSHOP",
+    "description": "your online shopping platform",
+    "image": "https://images.pexels.com/photos/3757944/pexels-photo-3757944.jpeg"
+  },
+  {
+    "id": 5,
+    "title": "EASYMED",
+    "description": "your online medical consultation platform",
+    "image": "https://images.pexels.com/photos/40568/medical-appointment-doctor-healthcare-40568.jpeg"
+  },
+  {
+    "id": 6,
+    "title": "EASYTRAVEL",
+    "description": "your ideal travel companion",
+    "image": "https://images.pexels.com/photos/346885/pexels-photo-346885.jpeg"
+  }
+]

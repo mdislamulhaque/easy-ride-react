@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "image": "/images/banner-1.jpg",
+    "title": "Luxury Cruise",
+    "description": "Enjoy a luxurious cruise experience."
+  },
+  {
+    "id": 2,
+    "image": "/images/banner-2.jpg",
+    "title": "Mountain Adventure",
+    "description": "Explore breathtaking mountain views."
+  },
+  {
+    "id": 3,
+    "image": "/images/banner-3.jpg",
+    "title": "Beach Paradise",
+    "description": "Relax on a serene beach getaway."
+  },
+  {
+    "id": 4,
+    "image": "/images/banner-4.jpg",
+    "title": "Beach Paradise",
+    "description": "Relax on a serene beach getaway."
+  },
+  {
+    "id": 5,
+    "image": "/images/banner-5.jpg",
+    "title": "Beach Paradise",
+    "description": "Relax on a serene beach getaway."
+  }
+]
