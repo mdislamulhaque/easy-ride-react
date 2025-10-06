@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaShoppingCart, FaBars } from "react-icons/fa";
+import { Link } from "react-router";
 
 export default function NavBar() {
   const [menuItems, setMenuItems] = useState([]);
@@ -30,10 +31,14 @@ export default function NavBar() {
     <nav className="bg-white shadow-md">
       <div className="max-w-8xl mx-auto flex items-center justify-between px-4 py-3">
         {/* Logo */}
-              <div className="text-xl font-bold text-black">
-        <a href="/" className="hover:text-indigo-600 transition">
-          <img className="h-16" src="/images/easy-ride.png" alt="logo-easy-ride" />
-        </a>
+        <div className="text-xl font-bold text-black">
+          <a href="/" className="hover:text-indigo-600 transition">
+            <img
+              className="h-16"
+              src="/images/easy-ride.png"
+              alt="logo-easy-ride"
+            />
+          </a>
         </div>
 
         {/* Desktop Menu */}
@@ -46,13 +51,13 @@ export default function NavBar() {
           {!loading &&
             !error &&
             menuItems.map((item) => (
-              <a
+              <Link
                 key={item.id}
-                href={item.link}
+                to={item.link}
                 className="hover:text-indigo-600 transition"
               >
                 {item.title}
-              </a>
+              </Link>
             ))}
 
           {/* Cart */}
@@ -84,13 +89,14 @@ export default function NavBar() {
           {!loading &&
             !error &&
             menuItems.map((item) => (
-              <a
+              <Link
                 key={item.id}
-                href={item.link}
+                to={item.link}
                 className="block hover:text-indigo-600 transition"
+                onClick={() => setIsOpen(!isOpen)}
               >
                 {item.title}
-              </a>
+              </Link>
             ))}
 
           {/* Cart */}

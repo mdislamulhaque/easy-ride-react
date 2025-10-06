@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layout/MainLayout";
 import HomePage from "../pages/homePage/HomePage";
+import Policy from "../pages/policy/Policy";
 
 
 
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: "/policy",
+        element: <Policy />
       },
     
       {

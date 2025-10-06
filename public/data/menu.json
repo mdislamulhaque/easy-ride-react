@@ -1,6 +1,6 @@
 [
   { "id": 1, "title": "Legal Notices", "link": "/legal" },
   { "id": 2, "title": "FAQs", "link": "/faqs" },
-  { "id": 3, "title": "Privacy Policy", "link": "/privacy" },
+  { "id": 3, "title": "Privacy Policy", "link": "/policy" },
   { "id": 4, "title": "Login", "link": "/login" }
 ]
