@@ -3,6 +3,7 @@ import axios from "axios";
 import { FaShoppingCart, FaBars } from "react-icons/fa";
 import { Link } from "react-router";
 import LanguageToggle from "../../hook/LanguageToogle";
+import LanguageToggle2 from "../../hook/LanguageToogle2";
 
 export default function NavBar() {
   const [menuItems, setMenuItems] = useState([]);
@@ -62,7 +63,8 @@ export default function NavBar() {
             ))}
 
           {/* Cart */}
-          <LanguageToggle />
+          {/* <LanguageToggle /> */}
+          <LanguageToggle2 />
           <div className="relative">
             <FaShoppingCart className="text-xl" />
             <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full px-1.5">
