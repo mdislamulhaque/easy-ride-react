@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaShoppingCart, FaBars } from "react-icons/fa";
 import { Link } from "react-router";
+import LanguageToggle from "../../hook/LanguageToogle";
 
 export default function NavBar() {
   const [menuItems, setMenuItems] = useState([]);
@@ -61,6 +62,7 @@ export default function NavBar() {
             ))}
 
           {/* Cart */}
+          <LanguageToggle />
           <div className="relative">
             <FaShoppingCart className="text-xl" />
             <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full px-1.5">
@@ -70,12 +72,15 @@ export default function NavBar() {
         </div>
 
         {/* Mobile Hamburger */}
-        <button
-          className="md:hidden text-black text-xl"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <FaBars />
-        </button>
+        <div className="md:hidden flex items-center gap-4">
+          <LanguageToggle />
+          <button
+            className=" text-black text-xl"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <FaBars />
+          </button>
+        </div>
       </div>
 
       {/* Mobile Dropdown */}
@@ -100,6 +105,7 @@ export default function NavBar() {
             ))}
 
           {/* Cart */}
+
           <div className="flex items-center gap-2">
             <FaShoppingCart className="text-xl" />
             <span className="bg-red-600 text-white text-xs font-bold rounded-full px-2">
