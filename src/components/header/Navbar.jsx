@@ -75,7 +75,8 @@ export default function NavBar() {
 
         {/* Mobile Hamburger */}
         <div className="md:hidden flex items-center gap-4">
-          <LanguageToggle />
+          {/* <LanguageToggle /> */}
+          <LanguageToggle2 />
           <button
             className=" text-black text-xl"
             onClick={() => setIsOpen(!isOpen)}
