@@ -2,31 +2,31 @@
   {
     "id": 1,
     "title": "TOYOTA RAV4",
-    "image": "/public/images/Suzuki-Vitara.png"
+    "image": "/images/Suzuki-Vitara.png"
   },
   {
     "id": 2,
     "title": "TOYOTA COROLLA",
-    "image": "/public/images/Toyota-Corolla.png"
+    "image": "/images/Toyota-Corolla.png"
   },
   {
     "id": 3,
     "title": "TOYOTA RUSH",
-    "image": "/public/images/Toyota-Rush.png"
+    "image": "/images/Toyota-Rush.png"
   },
   {
     "id": 4,
     "title": "TOYOTA STARLET",
-    "image": "/public/images/Toyota-Starlet.png"
+    "image": "/images/Toyota-Starlet.png"
   },
   {
     "id": 5,
     "title": "SUZUKI DZIRE",
-    "image": "/public/images/Suzuki-Dzire.png"
+    "image": "/images/Suzuki-Dzire.png"
   },
   {
     "id": 6,
     "title": "SUZUKI VITARA",
-    "image": "/public/images/green-11-e1647329968998.jpg"
+    "image": "/images/green-11-e1647329968998.jpg"
   }
 ]
