@@ -46,14 +46,14 @@ export default function HeroSlider() {
           <img
             src={slide.image}
             alt={slide.title}
-            className="w-full h-[500px]  object-center sm:h-[400px] md:h-[500px] lg:h-auto"
+            className="w-full h-[300px]  object-center sm:h-[400px] md:h-[500px] lg:h-auto"
           />
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/10 text-white p-4">
             {/* <h2 className="text-3xl md:text-5xl font-bold mb-4">
               {slide.title}
             </h2> */}
             {/* <p className="mb-6 text-lg md:text-2xl">{slide.description}</p> */}
-            <Link to={"/"} className="bg-gray-900 hover:bg-gray-950 px-8 py-3 rounded font-bold uppercase text-3xl">
+            <Link to={"/"} className="bg-gray-900 hover:bg-gray-950 px-4 md:px-8 py-2 md:py-3 rounded md:font-bold uppercase  md:text-3xl">
               Book Now
             </Link>
           </div>
