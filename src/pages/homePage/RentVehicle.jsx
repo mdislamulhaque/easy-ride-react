@@ -2,18 +2,19 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
 
-export default function SpecialOffers() {
+export default function RentVehicle() {
   const [offers, setOffers] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(true);
 
   useEffect(() => {
     axios
-      .get("/data/offers.json")
+      .get("/data/vehicle.json")
       .then((res) => setOffers(res.data))
       .catch((err) => console.error("Error fetching offers:", err));
   }, []);
 
+  // Determine visible cards per screen width
   const getVisibleCards = () => {
     if (typeof window === "undefined") return 1;
     const width = window.innerWidth;
@@ -33,10 +34,10 @@ export default function SpecialOffers() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Duplicate data for infinite loop
+  // Duplicate data for smooth infinite loop
   const extendedOffers = [...offers, ...offers];
 
-  // Auto slide
+  // Auto slide every 4 seconds
   useEffect(() => {
     if (!offers.length) return;
     const interval = setInterval(() => {
@@ -53,12 +54,12 @@ export default function SpecialOffers() {
     setCurrentIndex((prev) => (prev === 0 ? offers.length - 1 : prev - 1));
   };
 
-  // Reset when reaching cloned end
+  // Reset instantly when reaching cloned end
   useEffect(() => {
     if (currentIndex === offers.length) {
       const timeout = setTimeout(() => {
         setIsAnimating(false);
-        setCurrentIndex(0); // reset instantly without animation
+        setCurrentIndex(0);
       }, 800);
       return () => clearTimeout(timeout);
     } else {
@@ -74,12 +75,13 @@ export default function SpecialOffers() {
 
   return (
     <section className="py-10 bg-white">
-      <div className="max-w-8xl mx-auto px-4">
+      <div className="max-w-8xl mx-auto px-4 ">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
-          TAKE ADVANTAGE OF OUR SPECIAL OFFERS
+          RENT ONE OF OUR STAR VEHICLES
         </h2>
 
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden py-6">
+          {/* Carousel container */}
           <motion.div
             className="flex"
             animate={{
@@ -98,24 +100,26 @@ export default function SpecialOffers() {
                 style={{ width: `${100 / visibleCards}%` }}
                 whileHover={{ scale: 1.05 }}
               >
-                <div className="relative rounded-xl overflow-hidden shadow-md group h-84">
+                <div className="bg-white rounded-xl overflow-hidden  text-center p-4 flex flex-col items-center h-[320px] justify-between">
                   <img
                     src={offer.image}
                     alt={offer.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-48 object-contain"
                   />
-                  <div className="absolute inset-0 bg-black/10 flex items-end">
-                    <div className="p-4 text-white">
-                      <h3 className="text-lg font-bold">{offer.title}</h3>
-                      <p className="text-sm">{offer.description}</p>
-                    </div>
+                  <div>
+                    <h3 className="text-lg font-bold mt-3 text-gray-900">
+                      {offer.title}
+                    </h3>
+                    <button className="mt-3 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-md transition-colors">
+                      TO BOOK
+                    </button>
                   </div>
                 </div>
               </motion.div>
             ))}
           </motion.div>
 
-          {/* Navigation */}
+          {/* Navigation buttons */}
           <button
             onClick={prevSlide}
             className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-colors"
@@ -127,13 +131,6 @@ export default function SpecialOffers() {
             className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-colors"
           >
             &#10095;
-          </button>
-        </div>
-
-        {/* CTA Button */}
-        <div className="text-center mt-8">
-          <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-md transition-colors">
-            SEE ALL OUR SPECIAL OFFERS
           </button>
         </div>
       </div>
