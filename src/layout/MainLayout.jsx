@@ -1,12 +1,13 @@
 import React from "react";
 import { Outlet } from "react-router";
 import Footer from "../components/footer/Footer";
-import Header from "../components/header/Header";
+import Header from "../components/header/header";
+
 
 export default function MainLayout() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header/>
+      <Header />
       <div className="flex-1">
         <Outlet></Outlet>
       </div>
