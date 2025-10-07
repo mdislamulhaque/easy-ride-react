@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router";
 
 const packagesData = [
   {
@@ -125,9 +126,12 @@ export default function CarRentalPage() {
               <div className="p-4">
                 <h3 className="font-bold text-lg">{pkg.title}</h3>
                 <p className="text-gray-600 mt-1">{pkg.price}</p>
-                <button className="bg-red-600 text-white w-full py-2 mt-3 rounded">
+                <Link
+                  to={"/car-booking"}
+                  className="bg-red-600 text-white w-full py-2 mt-3 rounded inline-block text-center hover:bg-red-700"
+                >
                   Choice of Vehicle
-                </button>
+                </Link>
               </div>
             </div>
           ))}
