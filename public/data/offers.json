@@ -1,33 +1,155 @@
 [
   {
     "id": 1,
-    "title": "EASYWORK",
-    "description": "the ideal solution for businesses and workers",
-    "image": "/images/Course-2h-1.jpg"
+    "title": "TOYOTA RAV4",
+    "description": "A stylish and powerful SUV perfect for family trips or business travel.",
+    "price": "70,000 CFA - 95,000 CFA",
+    "category": "Car",
+    "package": "Daily",
+    "image": "/images/green-11-e1647329968998.jpg",
+    "gallery": ["/images/Toyota-RAV4.jpg", "/images/Toyota-Rush.png"],
+    "features": ["Automatic", "5 Seats", "AC", "Bluetooth", "Hybrid Engine"],
+    "tags": ["SUV", "Comfort", "Automatic"]
   },
   {
     "id": 2,
-    "title": "EASYSCHOOL",
-    "description": "the ideal solution for all parents",
-    "image": "/images/Easyflash-1.jpg"
+    "title": "TOYOTA COROLLA",
+    "description": "Reliable and efficient sedan, ideal for city and long-distance drives.",
+    "price": "55,000 CFA - 80,000 CFA",
+    "category": "Car",
+    "package": "Daily",
+    "image": "/images/Toyota-Corolla.png",
+    "gallery": ["/images/Toyota-Corolla.png", "/images/Toyota-Starlet.png"],
+    "features": [
+      "Automatic",
+      "Fuel Efficient",
+      "4 Seats",
+      "AC",
+      "Smart Screen"
+    ],
+    "tags": ["Sedan", "Economy", "Comfort"]
   },
   {
     "id": 3,
-    "title": "EASYFLASH",
-    "description": "your reliable and confidential parcel and letter delivery service available in Douala and Yaoundé",
-    "image": "/images/Easyride-recompense-votre-fidelite.jpg"
+    "title": "TOYOTA RUSH",
+    "description": "Compact SUV offering comfort and versatility for family and business.",
+    "price": "65,000 CFA - 85,000 CFA",
+    "category": "Car",
+    "package": "Daily",
+    "image": "/images/Toyota-Rush.png",
+    "gallery": ["/images/Toyota-Rush.png", "/images/Suzuki-Vitara.png"],
+    "features": ["Automatic", "7 Seats", "Rear Camera", "AC", "USB Charger"],
+    "tags": ["SUV", "Family", "Comfort"]
   },
   {
     "id": 4,
-    "title": "EASYSHOP",
-    "description": "your online shopping platform",
-    "image": "/images/Easyschool-1.jpg"
+    "title": "TOYOTA STARLET",
+    "description": "A compact car built for daily urban commuting with style.",
+    "price": "45,000 CFA - 60,000 CFA",
+    "category": "Car",
+    "package": "Daily",
+    "image": "/images/Toyota-Starlet.png",
+    "gallery": ["/images/Toyota-Starlet.png", "/images/Suzuki-Dzire.png"],
+    "features": ["Manual", "4 Seats", "Fuel Efficient", "Bluetooth"],
+    "tags": ["City Car", "Compact", "Budget"]
   },
   {
     "id": 5,
-    "title": "EASYMED",
-    "description": "your online medical consultation platform",
-    "image": "/images/Easywork-1.jpg"
+    "title": "SUZUKI DZIRE",
+    "description": "A compact sedan known for comfort and reliability.",
+    "price": "50,000 CFA - 65,000 CFA",
+    "category": "Car",
+    "package": "Daily",
+    "image": "/images/Suzuki-Dzire.png",
+    "gallery": ["/images/Suzuki-Dzire.png", "/images/Toyota-Corolla.png"],
+    "features": ["Manual", "4 Seats", "Fuel Efficient", "Compact Design"],
+    "tags": ["Economy", "City", "Sedan"]
+  },
+  {
+    "id": 6,
+    "title": "SUZUKI VITARA",
+    "description": "A sporty crossover with excellent performance and safety features.",
+    "price": "75,000 CFA - 90,000 CFA",
+    "category": "Car",
+    "package": "Daily",
+    "image": "/images/Suzuki-Vitara.png",
+    "gallery": ["/images/Suzuki-Vitara.png", "/images/Toyota-RAV4.jpg"],
+    "features": ["Automatic", "5 Seats", "Touchscreen", "Safety Airbags"],
+    "tags": ["SUV", "Sporty", "Comfort"]
+  },
+  {
+    "id": 7,
+    "title": "Hourly Package",
+    "description": "Book a car for short-distance rides charged hourly.",
+    "price": "10,000 CFA - 15,000 CFA",
+    "category": "Package",
+    "package": "Hourly",
+    "image": "/images/Course-2h-1.jpg",
+    "gallery": ["/images/Course-2h-1.jpg", "/images/Easyflash-1.jpg"],
+    "features": ["Flexible Booking", "Low Cost", "Instant Availability"],
+    "tags": ["Short Trip", "Hourly", "Economy"]
+  },
+  {
+    "id": 8,
+    "title": "Daily Package",
+    "description": "Perfect for full-day city rides or business schedules.",
+    "price": "70,000 CFA - 100,000 CFA",
+    "category": "Package",
+    "package": "Daily",
+    "image": "/images/Easyride-recompense-votre-fidelite.jpg",
+    "gallery": [
+      "/images/Easyride-recompense-votre-fidelite.jpg",
+      "/images/Easywork-1.jpg"
+    ],
+    "features": ["Unlimited KM", "Driver Included", "Full Day Availability"],
+    "tags": ["Full Day", "Comfort", "Driver"]
+  },
+  {
+    "id": 9,
+    "title": "Weekly Package",
+    "description": "Book your favorite car for an entire week at a discounted rate.",
+    "price": "350,000 CFA - 450,000 CFA",
+    "category": "Package",
+    "package": "Weekly",
+    "image": "/images/Easyflash-1.jpg",
+    "gallery": ["/images/Easyflash-1.jpg", "/images/Easywork-1.jpg"],
+    "features": ["Discounted Rate", "Priority Support", "Flexible Timing"],
+    "tags": ["Weekly", "Affordable", "Convenient"]
+  },
+  {
+    "id": 10,
+    "title": "Monthly Package",
+    "description": "Enjoy a full month of rides for business or personal use.",
+    "price": "1,000,000 CFA - 1,200,000 CFA",
+    "category": "Package",
+    "package": "Monthly",
+    "image": "/images/Easyschool-1.jpg",
+    "gallery": ["/images/Easyschool-1.jpg", "/images/Course-2h-1.jpg"],
+    "features": ["Long-term Use", "Maintenance Included", "Flexible Pickup"],
+    "tags": ["Monthly", "Corporate", "Long Term"]
+  },
+  {
+    "id": 11,
+    "title": "Airport Transfer",
+    "description": "Hassle-free airport pickup and drop service with professional drivers.",
+    "price": "35,000 CFA - 45,000 CFA",
+    "category": "Package",
+    "package": "Airport",
+    "image": "/images/Easyflash-1.jpg",
+    "gallery": ["/images/airport-transfer.jpg", "/images/Toyota-Corolla.png"],
+    "features": ["On-time Pickup", "Luggage Support", "Air Conditioned"],
+    "tags": ["Airport", "Transfer", "Comfort"]
+  },
+  {
+    "id": 12,
+    "title": "Wedding Package",
+    "description": "Luxury car booking for weddings and special occasions.",
+    "price": "200,000 CFA - 250,000 CFA",
+    "category": "Package",
+    "package": "Event",
+    "image": "/images/wedding-car.jpg",
+    "gallery": ["/images/wedding-car.jpg", "/images/Suzuki-Vitara.png"],
+    "features": ["Decorated Car", "Chauffeur", "Luxury Interior"],
+    "tags": ["Wedding", "Luxury", "Event"]
   }
-
 ]

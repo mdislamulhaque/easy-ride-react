@@ -16,7 +16,10 @@ export default function SpecialOffers() {
       try {
         const res = await axios.get("/data/offers.json");
         if (Array.isArray(res.data)) {
-          setOffers(res.data);
+          const packageOffers = res.data.filter(
+            (offer) => offer.category === "Package"
+          );
+          setOffers(packageOffers);
         } else {
           throw new Error("Invalid data format");
         }
@@ -52,6 +55,9 @@ export default function SpecialOffers() {
 
   // Duplicate data for infinite scroll
   const extendedOffers = [...offers, ...offers];
+  // const extendedOffers = offers.filter((o) => o.category === "Package");
+
+
 
   // Auto slide
   useEffect(() => {
@@ -172,7 +178,7 @@ export default function SpecialOffers() {
         {/* CTA Button */}
         <div className="text-center mt-8">
           <Link
-            to="/rent-a-car"
+            to="/all-offers"
             className="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-md transition-colors"
           >
             SEE ALL OUR SPECIAL OFFERS

@@ -12,10 +12,13 @@ export default function RentVehicle() {
   // Fetch vehicle data
   useEffect(() => {
     axios
-      .get("/data/vehicle.json")
+      .get("/data/offers.json")
       .then((res) => {
         if (Array.isArray(res.data)) {
-          setOffers(res.data);
+          const car = res.data.filter(
+            (offer) => offer.category === "Car"
+          );
+          setOffers(car);
         } else {
           throw new Error("Invalid data format received");
         }

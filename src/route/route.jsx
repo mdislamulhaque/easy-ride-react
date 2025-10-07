@@ -2,10 +2,10 @@ import { createBrowserRouter } from "react-router";
 import MainLayout from "../layout/MainLayout";
 import HomePage from "../pages/homePage/HomePage";
 import Policy from "../pages/policy/Policy";
-import CarRentalPage from "../pages/rentCarPage/CarRentalPage";
 import CarBookingPage from "../pages/carBookingPage/CarBooking";
 import MyReservation from "../pages/myReservation/MyReservation";
 import CheckoutPage from "../pages/checkoutPage/CheckOutPage";
+import AllOfferPage from "../pages/AllOfferPage/AllOfferPage";
 
 
 
@@ -23,11 +23,11 @@ const router = createBrowserRouter([
         element: <Policy />,
       },
       {
-        path: "/rent-a-car",
-        element: <CarRentalPage />,
+        path: "/all-offers",
+        element: <AllOfferPage />,
       },
       {
-        path: "/car-booking",
+        path: "/booking/:id",
         element: <CarBookingPage />,
       },
       {

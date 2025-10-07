@@ -11,7 +11,7 @@ export default function CarBookingPage() {
         {/* Left: Image */}
         <div>
           <img
-            src="/images/Easyflash-1.jpg"
+            src="/images/Easyflash-1.jpg" 
             alt="Greenride"
             className="rounded-xl shadow-md w-full"
           />
