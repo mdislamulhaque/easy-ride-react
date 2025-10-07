@@ -63,8 +63,8 @@ export default function NavBar() {
             ))}
 
           {/* Cart */}
-          {/* <LanguageToggle /> */}
-          <LanguageToggle2 />
+          <LanguageToggle />
+          {/* <LanguageToggle2 /> */}
           <div className="relative">
             <FaShoppingCart className="text-xl" />
             <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full px-1.5">
@@ -75,8 +75,8 @@ export default function NavBar() {
 
         {/* Mobile Hamburger */}
         <div className="md:hidden flex items-center gap-4">
-          {/* <LanguageToggle /> */}
-          <LanguageToggle2 />
+          <LanguageToggle />
+          {/* <LanguageToggle2 /> */}
           <button
             className=" text-black text-xl"
             onClick={() => setIsOpen(!isOpen)}

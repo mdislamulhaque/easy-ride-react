@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { Link } from "react-router";
 
 export default function SpecialOffers() {
   const [offers, setOffers] = useState([]);
@@ -132,9 +133,12 @@ export default function SpecialOffers() {
 
         {/* CTA Button */}
         <div className="text-center mt-8">
-          <button className="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-md transition-colors">
+          <Link
+            to={"/rent-a-car"}
+            className="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-md transition-colors"
+          >
             SEE ALL OUR SPECIAL OFFERS
-          </button>
+          </Link>
         </div>
       </div>
     </section>
