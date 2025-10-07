@@ -11,18 +11,18 @@ export default function CarBookingPage() {
         {/* Left: Image */}
         <div>
           <img
-            src="/images/greenride-car.png"
+            src="/images/Easyflash-1.jpg"
             alt="Greenride"
             className="rounded-xl shadow-md w-full"
           />
           <div className="flex gap-3 mt-3">
             <img
-              src="/images/greenride-car.png"
+              src="/images/Easyflash-1.jpg"
               alt="Greenride thumbnail"
               className="w-20 h-20 rounded-md border cursor-pointer"
             />
             <img
-              src="/images/greenride-car.png"
+              src="/images/Course-2h-1.jpg"
               alt="Greenride thumbnail"
               className="w-20 h-20 rounded-md border cursor-pointer"
             />
@@ -117,19 +117,19 @@ export default function CarBookingPage() {
             {
               title: "Day Package",
               price: "70,000 CFA - 101,000 CFA",
-              img: "/images/day-package.jpg",
+              img: "/images/Course-2h-1.jpg",
               btn: "CHOICE OF VEHICLE",
             },
             {
               title: "Monthly Package",
               price: "200,000 CFA - 300,000 CFA",
-              img: "/images/monthly-package.jpg",
+              img: "/images/Easyschool-1.jpg",
               btn: "CHOICE OF VEHICLE",
             },
             {
               title: "SUZUKI DZIRE",
               price: "75,000 CFA",
-              img: "/images/suzuki-dzire.jpg",
+              img: "/images/Easyride-recompense-votre-fidelite.jpg",
               btn: "TO BOOK",
             },
           ].map((offer, i) => (

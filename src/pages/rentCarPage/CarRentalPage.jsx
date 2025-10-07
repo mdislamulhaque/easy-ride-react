@@ -6,25 +6,25 @@ const packagesData = [
     id: 1,
     title: "Greenride",
     price: "10,000 C/A – 50,000 C/A",
-    image: "/public/images/Easyflash-1.jpg",
+    image: "/images/Easyflash-1.jpg",
   },
   {
     id: 2,
     title: "2-hour package",
     price: "12,000 C/A – 20,000 C/A",
-    image: "/public/images/Course-2h-1.jpg",
+    image: "/images/Course-2h-1.jpg",
   },
   {
     id: 3,
     title: "Monthly Package",
     price: "2,00,000 C/A – 3,00,000 C/A",
-    image: "/images/monthly.jpg",
+    image: "/images/Easyschool-1.jpg",
   },
   {
     id: 4,
     title: "Out of town round trip",
     price: "20,000 C/A – 25,000 C/A",
-    image: "/images/towntrip.jpg",
+    image: "/images/Easyride-recompense-votre-fidelite.jpg",
   },
 ];
 

@@ -4,14 +4,27 @@ import { motion } from "framer-motion";
 
 export default function RentVehicle() {
   const [offers, setOffers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(true);
 
+  // Fetch vehicle data
   useEffect(() => {
     axios
       .get("/data/vehicle.json")
-      .then((res) => setOffers(res.data))
-      .catch((err) => console.error("Error fetching offers:", err));
+      .then((res) => {
+        if (Array.isArray(res.data)) {
+          setOffers(res.data);
+        } else {
+          throw new Error("Invalid data format received");
+        }
+      })
+      .catch((err) => {
+        console.error("Error fetching offers:", err);
+        setError("Failed to load vehicle data. Please try again later.");
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   // Determine visible cards per screen width
@@ -40,19 +53,13 @@ export default function RentVehicle() {
   // Auto slide every 4 seconds
   useEffect(() => {
     if (!offers.length) return;
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 4000);
+    const interval = setInterval(() => nextSlide(), 4000);
     return () => clearInterval(interval);
   }, [offers, currentIndex, visibleCards]);
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => prev + 1);
-  };
-
-  const prevSlide = () => {
+  const nextSlide = () => setCurrentIndex((prev) => prev + 1);
+  const prevSlide = () =>
     setCurrentIndex((prev) => (prev === 0 ? offers.length - 1 : prev - 1));
-  };
 
   // Reset instantly when reaching cloned end
   useEffect(() => {
@@ -67,15 +74,34 @@ export default function RentVehicle() {
     }
   }, [currentIndex, offers.length]);
 
+  // Conditional UI rendering
+  if (loading) {
+    return (
+      <div className="text-center py-10 text-gray-500 animate-pulse">
+        Loading vehicle offers...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-10 text-red-600 font-semibold">
+        {error}
+      </div>
+    );
+  }
+
   if (!offers.length) {
     return (
-      <div className="text-center py-10 text-gray-500">Loading offers...</div>
+      <div className="text-center py-10 text-gray-500">
+        No vehicles available at the moment.
+      </div>
     );
   }
 
   return (
     <section className="py-10 bg-white">
-      <div className="max-w-8xl mx-auto px-4 ">
+      <div className="max-w-8xl mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">
           RENT ONE OF OUR STAR VEHICLES
         </h2>
@@ -84,9 +110,7 @@ export default function RentVehicle() {
           {/* Carousel container */}
           <motion.div
             className="flex"
-            animate={{
-              x: `-${currentIndex * (100 / visibleCards)}%`,
-            }}
+            animate={{ x: `-${currentIndex * (100 / visibleCards)}%` }}
             transition={
               isAnimating
                 ? { duration: 0.8, ease: "easeInOut" }
@@ -100,11 +124,12 @@ export default function RentVehicle() {
                 style={{ width: `${100 / visibleCards}%` }}
                 whileHover={{ scale: 1.05 }}
               >
-                <div className="bg-white rounded-xl overflow-hidden  text-center p-4 flex flex-col items-center h-[320px] justify-between">
+                <div className="bg-white rounded-xl  overflow-hidden text-center p-4 flex flex-col items-center h-[320px] justify-between transition hover:shadow-lg">
                   <img
                     src={offer.image}
                     alt={offer.title}
                     className="w-full h-48 object-contain"
+                    onError={(e) => (e.target.src = "/images/placeholder.png")}
                   />
                   <div>
                     <h3 className="text-lg font-bold mt-3 text-gray-900">

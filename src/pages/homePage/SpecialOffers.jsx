@@ -1,20 +1,36 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { Link } from "react-router";
+import { Link } from "react-router"; // fixed router import
 
 export default function SpecialOffers() {
   const [offers, setOffers] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  // Fetch offers
   useEffect(() => {
-    axios
-      .get("/data/offers.json")
-      .then((res) => setOffers(res.data))
-      .catch((err) => console.error("Error fetching offers:", err));
+    const fetchOffers = async () => {
+      try {
+        const res = await axios.get("/data/offers.json");
+        if (Array.isArray(res.data)) {
+          setOffers(res.data);
+        } else {
+          throw new Error("Invalid data format");
+        }
+      } catch (err) {
+        console.error("Error fetching offers:", err);
+        setError("Failed to load offers. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchOffers();
   }, []);
 
+  // Determine visible cards based on screen width
   const getVisibleCards = () => {
     if (typeof window === "undefined") return 1;
     const width = window.innerWidth;
@@ -34,7 +50,7 @@ export default function SpecialOffers() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Duplicate data for infinite loop
+  // Duplicate data for infinite scroll
   const extendedOffers = [...offers, ...offers];
 
   // Auto slide
@@ -59,7 +75,7 @@ export default function SpecialOffers() {
     if (currentIndex === offers.length) {
       const timeout = setTimeout(() => {
         setIsAnimating(false);
-        setCurrentIndex(0); // reset instantly without animation
+        setCurrentIndex(0);
       }, 800);
       return () => clearTimeout(timeout);
     } else {
@@ -67,12 +83,30 @@ export default function SpecialOffers() {
     }
   }, [currentIndex, offers.length]);
 
-  if (!offers.length) {
+  // 🧩 Conditional rendering
+  if (loading) {
     return (
-      <div className="text-center py-10 text-gray-500">Loading offers...</div>
+      <div className="text-center py-10 text-gray-500 animate-pulse">
+        Loading offers...
+      </div>
     );
   }
 
+  if (error) {
+    return (
+      <div className="text-center py-10 text-red-600 font-medium">{error}</div>
+    );
+  }
+
+  if (!offers.length) {
+    return (
+      <div className="text-center py-10 text-gray-500">
+        No special offers available right now.
+      </div>
+    );
+  }
+
+  // ✅ Main UI
   return (
     <section className="py-10 bg-white">
       <div className="max-w-8xl mx-auto px-4">
@@ -105,10 +139,12 @@ export default function SpecialOffers() {
                     alt={offer.title}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-black/10 flex items-end">
+                  <div className="absolute inset-0 bg-black/30 flex items-end">
                     <div className="p-4 text-white">
                       <h3 className="text-lg font-bold">{offer.title}</h3>
-                      <p className="text-sm">{offer.description}</p>
+                      {offer.description && (
+                        <p className="text-sm">{offer.description}</p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -119,12 +155,14 @@ export default function SpecialOffers() {
           {/* Navigation */}
           <button
             onClick={prevSlide}
+            aria-label="Previous slide"
             className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-colors"
           >
             &#10094;
           </button>
           <button
             onClick={nextSlide}
+            aria-label="Next slide"
             className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-colors"
           >
             &#10095;
@@ -134,7 +172,7 @@ export default function SpecialOffers() {
         {/* CTA Button */}
         <div className="text-center mt-8">
           <Link
-            to={"/rent-a-car"}
+            to="/rent-a-car"
             className="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-md transition-colors"
           >
             SEE ALL OUR SPECIAL OFFERS

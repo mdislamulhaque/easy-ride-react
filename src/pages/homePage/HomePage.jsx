@@ -7,7 +7,7 @@ import RentVehicle from './RentVehicle';
 export default function HomePage() {
   return (
     <div>
-          <HeroSlider />
+      <HeroSlider />
       <SpecialOffers />
       <RentVehicle />
       <StatsSection />
