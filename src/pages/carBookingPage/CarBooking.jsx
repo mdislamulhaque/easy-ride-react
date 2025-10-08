@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router";
+import { Link, useParams } from "react-router";
 import axios from "axios";
-import { b } from "motion/react-client";
 
 export default function CarBookingPage() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [cars, setCars] = useState([]);
   const [mainCar, setMainCar] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -13,7 +11,8 @@ export default function CarBookingPage() {
   const [tab, setTab] = useState("description");
   const [selectedTiming, setSelectedTiming] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const [book , setBook] = useState(false);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [book, setBook] = useState(false);
 
   useEffect(() => {
     axios
@@ -31,42 +30,62 @@ export default function CarBookingPage() {
       });
   }, [id]);
 
-  // ✅ নির্বাচিত timing অনুযায়ী price বের করা
+  // ✅ Find selected timing price
   const selectedTimingObj = mainCar?.timings?.find(
     (t) => t.label === selectedTiming
   );
   const basePrice = selectedTimingObj?.price || mainCar?.price || 0;
 
-  // ✅ Calculate total price based on quantity (quantity double = price double)
-  const calculateTotalPrice = () => {
-    return basePrice * quantity;
+  // ✅ Update totalPrice whenever quantity or timing changes
+  useEffect(() => {
+    if (selectedTiming && basePrice > 0) {
+      setTotalPrice(basePrice * quantity);
+    } else {
+      setTotalPrice(0);
+    }
+  }, [quantity, selectedTiming, basePrice]);
+
+  // ✅ Update quantity only (without saving to localStorage)
+  const updateQuantity = (newQty) => {
+    if (newQty < 1) return;
+    setQuantity(newQty);
   };
 
-  // ✅ Add to Reservation Function
+  // ✅ Update header cart count
+  const updateHeaderCartCount = (cart) => {
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    window.dispatchEvent(
+      new CustomEvent("cartUpdate", {
+        detail: { count: totalItems },
+      })
+    );
+  };
+
+  // ✅ Add to Reservation Function (Only this will save to localStorage)
   const handleAddToReservation = () => {
     if (!selectedTiming) {
       alert("Please select a timing first!");
       return;
     }
 
+    // Create reservation item
     const reservationItem = {
       id: mainCar.id,
       name: mainCar.title,
       timing: selectedTiming,
       img: mainCar.image,
-      price: basePrice, // Base price (per unit)
+      price: basePrice,
       quantity: quantity,
-      totalPrice: calculateTotalPrice(), // Total price for all quantity
+      totalPrice: totalPrice,
       category: mainCar.category,
       features: mainCar.features,
     };
 
-    // ✅ Get existing cart from localStorage
+    // Save to localStorage
     const existingCart = JSON.parse(
       localStorage.getItem("reservationCart") || "[]"
     );
 
-    // ✅ Check if item already exists in cart
     const existingItemIndex = existingCart.findIndex(
       (item) =>
         item.id === reservationItem.id && item.timing === reservationItem.timing
@@ -74,42 +93,17 @@ export default function CarBookingPage() {
 
     let updatedCart;
     if (existingItemIndex >= 0) {
-      // ✅ Update quantity and total price if item exists
       updatedCart = [...existingCart];
-      const existingItem = updatedCart[existingItemIndex];
-      const newQuantity = existingItem.quantity + reservationItem.quantity;
-      updatedCart[existingItemIndex] = {
-        ...existingItem,
-        quantity: newQuantity,
-        totalPrice: basePrice * newQuantity,
-      };
+      updatedCart[existingItemIndex] = reservationItem;
     } else {
-      // ✅ Add new item if doesn't exist
       updatedCart = [...existingCart, reservationItem];
     }
 
-    // ✅ Save to localStorage
     localStorage.setItem("reservationCart", JSON.stringify(updatedCart));
-
-    // ✅ Update header cart count
     updateHeaderCartCount(updatedCart);
 
-    // ✅ Navigate to reservation page
-    // navigate("/reservation");
-    alert("Added to your reservation cart!");
     setBook(true);
-    
-  };
-
-  // ✅ Function to update header cart count
-  const updateHeaderCartCount = (cart) => {
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    // Dispatch custom event for header update
-    window.dispatchEvent(
-      new CustomEvent("cartUpdate", {
-        detail: { count: totalItems },
-      })
-    );
+    alert("Added to your reservation cart!");
   };
 
   if (loading) return <div className="text-center py-10">Loading...</div>;
@@ -162,8 +156,14 @@ export default function CarBookingPage() {
             <div className="flex items-center gap-2">
               <select
                 value={selectedTiming}
-                onChange={(e) => setSelectedTiming(e.target.value)}
-                className="border rounded-md px-3 py-1 focus:outline-none focus:ring-1 focus:ring-red-500"
+                onChange={(e) => {
+                  const newTiming = e.target.value;
+                  setSelectedTiming(newTiming);
+                  setBook(false);
+                  // Reset quantity to 1 when timing changes
+                  setQuantity(1);
+                }}
+                className="border rounded-md px-3 py-1"
               >
                 <option value="">Select timing...</option>
                 {mainCar.timings?.map((time, i) => (
@@ -176,27 +176,48 @@ export default function CarBookingPage() {
               {selectedTiming && (
                 <button
                   type="button"
-                  onClick={() => { setSelectedTiming(""); setBook(false); }}
+                  onClick={() => {
+                    setSelectedTiming("");
+                    setBook(false);
+                    setQuantity(1);
+                  }}
                   className="text-gray-500 text-sm hover:text-red-500 transition"
                 >
-                  To erase
+                  Clear
                 </button>
               )}
             </div>
           </div>
 
-          {/* Quantity + Button */}
+          {/* Quantity with Plus/Minus */}
           <div className="flex items-center flex-wrap gap-3 mb-6">
             <div className="flex items-center gap-2">
               <label className="font-semibold text-gray-700">Quantity:</label>
-              <input
-                type="number"
-                min="1"
-                value={quantity}
-                onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
-                className="w-16 border rounded-md text-center py-1"
-              />
+              <div className="flex items-center border rounded-md overflow-hidden">
+                <button
+                  onClick={() => updateQuantity(quantity - 1)}
+                  className="px-3 py-1 bg-gray-200 hover:bg-gray-300"
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  min="1"
+                  value={quantity}
+                  onChange={(e) =>
+                    updateQuantity(parseInt(e.target.value) || 1)
+                  }
+                  className="w-16 text-center py-1 outline-none"
+                />
+                <button
+                  onClick={() => updateQuantity(quantity + 1)}
+                  className="px-3 py-1 bg-gray-200 hover:bg-gray-300"
+                >
+                  +
+                </button>
+              </div>
             </div>
+
             <button
               onClick={handleAddToReservation}
               className="bg-red-600 text-white px-5 py-2 rounded-md hover:bg-red-700"
@@ -238,7 +259,7 @@ export default function CarBookingPage() {
                 </div>
                 <div className="flex justify-between border-t pt-1 font-semibold text-lg text-red-600">
                   <span>Total Price:</span>
-                  <span>{calculateTotalPrice().toLocaleString()} CFA</span>
+                  <span>{basePrice * quantity} CFA</span>
                 </div>
               </div>
             </div>
@@ -253,7 +274,6 @@ export default function CarBookingPage() {
         </div>
       </div>
 
-      {/* Rest of the component remains same */}
       {/* Tabs */}
       <div className="mt-10 border-b border-gray-300">
         <div className="flex gap-6 border-b">
