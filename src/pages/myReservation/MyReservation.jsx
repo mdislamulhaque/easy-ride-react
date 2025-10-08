@@ -3,19 +3,35 @@ import { Link } from "react-router";
 
 export default function MyReservation() {
   const [cart, setCart] = useState([]);
+  console.log("Cart:", cart.map((item) => item.quantity));
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  console.log("Total Items in Cart:", totalItems);
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + item.quantity * item.price,
+    0
+  );
+  console.log("Total Price:", totalPrice);
 
-  // ✅ Load cart from localStorage on component mount
+  // 🔄 LocalStorage থেকে cart load + storage change হলে আবার load
   useEffect(() => {
-    const savedCart = JSON.parse(
-      localStorage.getItem("reservationCart") || "[]"
-    );
-    setCart(savedCart);
-    updateHeaderCartCount(savedCart);
+    const loadCart = () => {
+      const savedCart = JSON.parse(
+        localStorage.getItem("reservationCart") || "[]"
+      );
+      setCart(savedCart);
+    };
+
+    loadCart();
+
+    // অন্য tab বা component থেকে localStorage change হলে শুনবে
+    window.addEventListener("storage", loadCart);
+    return () => {
+      window.removeEventListener("storage", loadCart);
+    };
   }, []);
 
-  // ✅ Update quantity and recalculate total price
-  const handleQuantityChange = (id, timing, value) => {
-    const newQuantity = Number(value);
+  // ✅ Update quantity (with + / - / input)
+  const handleQuantityChange = (id, timing, newQuantity) => {
     if (newQuantity < 1) return;
 
     const updatedCart = cart.map((item) =>
@@ -23,7 +39,7 @@ export default function MyReservation() {
         ? {
             ...item,
             quantity: newQuantity,
-            totalPrice: item.price * newQuantity, // Recalculate total price
+            totalPrice: item.price * newQuantity, // recalc total
           }
         : item
     );
@@ -44,7 +60,7 @@ export default function MyReservation() {
     updateHeaderCartCount(updatedCart);
   };
 
-  // ✅ Clear all reservations
+  // ✅ Clear all
   const handleClearAll = () => {
     setCart([]);
     localStorage.setItem("reservationCart", "[]");
@@ -61,8 +77,9 @@ export default function MyReservation() {
     );
   };
 
-  const subtotal = cart.reduce((acc, item) => acc + item.totalPrice, 0);
-
+  // 🧮 Subtotal & Total হিসাব
+  const subtotal = cart.reduce((acc, item) => acc + (item.totalPrice || 0), 0);
+  const total = subtotal;
   const totalItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   if (cart.length === 0) {
@@ -100,7 +117,7 @@ export default function MyReservation() {
         <h1 className="text-3xl font-bold">My reservations</h1>
         <p className="text-gray-300 mt-2">
           Total Items: {totalItemsCount} | Total Amount:{" "}
-          {subtotal.toLocaleString()} CFA
+          {totalPrice} CFA
         </p>
       </div>
 
@@ -162,22 +179,48 @@ export default function MyReservation() {
                     {item.price.toLocaleString()} CFA
                   </td>
                   <td className="p-3">
-                    <input
-                      type="number"
-                      min="1"
-                      value={item.quantity}
-                      onChange={(e) =>
-                        handleQuantityChange(
-                          item.id,
-                          item.timing,
-                          e.target.value
-                        )
-                      }
-                      className="w-16 border border-gray-300 rounded text-center py-1"
-                    />
+                    <div className="flex items-center">
+                      <button
+                        onClick={() =>
+                          handleQuantityChange(
+                            item.id,
+                            item.timing,
+                            item.quantity - 1
+                          )
+                        }
+                        className="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded-l"
+                      >
+                        -
+                      </button>
+                      <input
+                        type="number"
+                        min="1"
+                        value={item.quantity}
+                        onChange={(e) =>
+                          handleQuantityChange(
+                            item.id,
+                            item.timing,
+                            Number(e.target.value)
+                          )
+                        }
+                        className="w-14 text-center border-t border-b py-1"
+                      />
+                      <button
+                        onClick={() =>
+                          handleQuantityChange(
+                            item.id,
+                            item.timing,
+                            item.quantity + 1
+                          )
+                        }
+                        className="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded-r"
+                      >
+                        +
+                      </button>
+                    </div>
                   </td>
                   <td className="p-3 text-gray-700 font-semibold">
-                    {item.totalPrice.toLocaleString()} CFA
+                    {item.quantity*item.price} CFA
                   </td>
                 </tr>
               ))}
@@ -194,16 +237,16 @@ export default function MyReservation() {
                 <span className="font-medium">Total Items:</span>
                 <span>{totalItemsCount}</span>
               </div>
-              <div className="flex justify-between border-t pt-2">
+              {/* <div className="flex justify-between border-t pt-2">
                 <span className="font-medium">Subtotal</span>
                 <span className="text-red-600 font-semibold">
-                  {subtotal.toLocaleString()} CFA
+                  {total} CFA
                 </span>
-              </div>
+              </div> */}
               <div className="flex justify-between border-t pt-2">
                 <span className="font-medium">Total</span>
                 <span className="text-red-600 font-semibold text-lg">
-                  {subtotal.toLocaleString()} CFA
+                  {totalPrice} CFA
                 </span>
               </div>
             </div>
