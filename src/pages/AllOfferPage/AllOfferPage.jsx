@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router";
+import { Link } from "react-router"; // Fixed import
 
 export default function AllOfferPage() {
   const [packages, setPackages] = useState([]);
@@ -10,6 +10,9 @@ export default function AllOfferPage() {
   const [priceRange, setPriceRange] = useState(300000);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const itemsPerPage = 4;
 
   // ✅ Fetch data from local JSON
   useEffect(() => {
@@ -30,46 +33,75 @@ export default function AllOfferPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  // ✅ Search filter
+  // ✅ Apply all filters and sorting
+  useEffect(() => {
+    let result = [...packages];
+
+    // Apply search filter
+    if (searchTerm) {
+      result = result.filter((pkg) =>
+        pkg.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    // Apply category filter
+    if (selectedCategory !== "all") {
+      result = result.filter((pkg) => pkg.category === selectedCategory);
+    }
+
+    // Apply price range filter
+    result = result.filter((pkg) => parseInt(pkg.price) <= priceRange);
+
+    // Apply sorting
+    if (sortOption === "low-to-high") {
+      result.sort((a, b) => parseInt(a.price) - parseInt(b.price));
+    } else if (sortOption === "high-to-low") {
+      result.sort((a, b) => parseInt(b.price) - parseInt(a.price));
+    }
+    // Default: newest to oldest (assuming IDs are sequential)
+    else {
+      result.sort((a, b) => b.id - a.id);
+    }
+
+    setFilteredPackages(result);
+    setCurrentPage(1); // Reset to first page when filters change
+  }, [packages, searchTerm, selectedCategory, priceRange, sortOption]);
+
+  // ✅ Search handler
   const handleSearch = (e) => {
-    const value = e.target.value.toLowerCase();
-    setSearchTerm(value);
-    const filtered = packages.filter((pkg) =>
-      pkg.title.toLowerCase().includes(value)
-    );
-    setFilteredPackages(filtered);
+    setSearchTerm(e.target.value);
   };
 
   // ✅ Category filter
   const handleCategory = (category) => {
-    if (category === "all") {
-      setFilteredPackages(packages);
-    } else {
-      const filtered = packages.filter((pkg) => pkg.category === category);
-      setFilteredPackages(filtered);
-    }
+    setSelectedCategory(category);
   };
 
   // ✅ Price range filter
   const handleRangeChange = (e) => {
-    const value = parseInt(e.target.value);
-    setPriceRange(value);
-
-    const filtered = packages.filter((pkg) => parseInt(pkg.price) <= value);
-    setFilteredPackages(filtered);
+    setPriceRange(parseInt(e.target.value));
   };
 
-  // ✅ Sort filter
+  // ✅ Sort handler
   const handleSort = (option) => {
     setSortOption(option);
-    let sorted = [...filteredPackages];
+  };
 
-    if (option === "low-to-high") {
-      sorted.sort((a, b) => parseInt(a.price) - parseInt(b.price));
-    } else if (option === "high-to-low") {
-      sorted.sort((a, b) => parseInt(b.price) - parseInt(a.price));
-    }
-    setFilteredPackages(sorted);
+  // ✅ Pagination
+  const totalPages = Math.ceil(filteredPackages.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = filteredPackages.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  // ✅ Format price with commas
+  const formatPrice = (price) => {
+    return parseInt(price).toLocaleString();
   };
 
   // ✅ Conditional rendering
@@ -86,12 +118,6 @@ export default function AllOfferPage() {
       <div className="text-center py-10 text-red-600 font-semibold">
         {error}
       </div>
-    );
-  }
-
-  if (!filteredPackages.length) {
-    return (
-      <div className="text-center py-10 text-gray-500">No offers found.</div>
     );
   }
 
@@ -115,13 +141,16 @@ export default function AllOfferPage() {
           <h3 className="font-semibold mb-2">Filter by rate</h3>
           <input
             type="range"
-            min="0"
+            min="10000"
             max="300000"
+            step="10000"
             value={priceRange}
             onChange={handleRangeChange}
             className="w-full accent-red-600"
           />
-          <p className="text-gray-500 mt-1">Up to: {priceRange} C/A</p>
+          <p className="text-gray-500 mt-1">
+            Up to: {formatPrice(priceRange)} C/A
+          </p>
         </div>
 
         {/* 📦 Offers Category */}
@@ -130,19 +159,27 @@ export default function AllOfferPage() {
           <ul className="space-y-1 text-gray-700">
             <li
               onClick={() => handleCategory("all")}
-              className="hover:text-red-600 cursor-pointer"
+              className={`hover:text-red-600 cursor-pointer ${
+                selectedCategory === "all" ? "text-red-600 font-semibold" : ""
+              }`}
             >
               All Offers
             </li>
             <li
-              onClick={() => handleCategory("package")}
-              className="hover:text-red-600 cursor-pointer"
+              onClick={() => handleCategory("Package")}
+              className={`hover:text-red-600 cursor-pointer ${
+                selectedCategory === "Package"
+                  ? "text-red-600 font-semibold"
+                  : ""
+              }`}
             >
               Special Offers
             </li>
             <li
-              onClick={() => handleCategory("car")}
-              className="hover:text-red-600 cursor-pointer"
+              onClick={() => handleCategory("Car")}
+              className={`hover:text-red-600 cursor-pointer ${
+                selectedCategory === "Car" ? "text-red-600 font-semibold" : ""
+              }`}
             >
               Cars
             </li>
@@ -156,7 +193,7 @@ export default function AllOfferPage() {
             <div className="flex items-center space-x-2">
               <img
                 src="/images/Toyota-Corolla.png"
-                alt=""
+                alt="Toyota Corolla"
                 className="w-12 h-8 object-cover"
               />
               <p className="text-sm">
@@ -167,7 +204,7 @@ export default function AllOfferPage() {
             <div className="flex items-center space-x-2">
               <img
                 src="/images/Suzuki-Vitara.png"
-                alt=""
+                alt="Suzuki Vitara"
                 className="w-12 h-8 object-cover"
               />
               <p className="text-sm">
@@ -182,7 +219,7 @@ export default function AllOfferPage() {
         <div>
           <h3 className="font-semibold mb-2">Tags</h3>
           <div className="flex flex-wrap gap-2">
-            {["SEDAN", "CITY CAR", "21 HRS", "Deposit", "SUV"].map((tag) => (
+            {["SEDAN", "CITY CAR", "21 HRS", "Driver", "SUV"].map((tag) => (
               <span
                 key={tag}
                 className="px-3 py-1 border rounded text-sm text-gray-600 hover:bg-red-600 hover:text-white transition-colors cursor-pointer"
@@ -200,8 +237,11 @@ export default function AllOfferPage() {
         <div className="flex flex-wrap justify-between items-center mb-6">
           <p>
             Showing{" "}
-            <span className="font-semibold">{filteredPackages.length}</span>{" "}
-            results
+            <span className="font-semibold">
+              {Math.min(currentItems.length, itemsPerPage)}
+            </span>{" "}
+            results of{" "}
+            <span className="font-semibold">{filteredPackages.length}</span>
           </p>
           <select
             className="border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
@@ -215,26 +255,36 @@ export default function AllOfferPage() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-          {filteredPackages.map((pkg) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-6">
+          {currentItems.map((pkg) => (
             <div
               key={pkg.id}
-              className="border rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow"
+              className="rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow border"
             >
               <img
                 src={pkg.image}
                 alt={pkg.title}
                 className="w-full h-40 object-cover"
-                onError={(e) => (e.target.src = "/images/placeholder.png")}
+                onError={(e) => {
+                  e.target.src = "/images/placeholder.png";
+                }}
               />
               <div className="p-4">
                 <h3 className="font-bold text-lg">{pkg.title}</h3>
-                <p className="text-gray-600 mt-1">{pkg.price} C/A</p>
+                <p className="text-gray-600 mt-1">
+                  {(pkg.price)}
+                </p>
+                <p className="text-sm text-gray-500 capitalize">
+                  {pkg.category}
+                </p>
                 <Link
-                  to="/booking"
+                  to={`/booking/${pkg.id}`}
+                  state={{ package: pkg }} // Pass package data to booking page
                   className="bg-red-600 text-white w-full py-2 mt-3 rounded inline-block text-center hover:bg-red-700 transition-colors"
                 >
-                  Choice of Vehicle
+                  {pkg.category === "Car"
+                    ? "Choice of Vehicle"
+                    : "View Details"}
                 </Link>
               </div>
             </div>
@@ -242,18 +292,30 @@ export default function AllOfferPage() {
         </div>
 
         {/* Pagination */}
-        <div className="flex justify-center mt-8 space-x-2">
-          {[1, 2, 3, 4, 5].map((num) => (
-            <button
-              key={num}
-              className={`px-3 py-1 border rounded ${
-                num === 1 ? "bg-red-600 text-white" : "hover:bg-gray-100"
-              }`}
-            >
-              {num}
-            </button>
-          ))}
-        </div>
+        {totalPages > 1 && (
+          <div className="flex justify-center mt-8 space-x-2">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
+              <button
+                key={num}
+                onClick={() => handlePageChange(num)}
+                className={`px-3 py-1 border rounded ${
+                  num === currentPage
+                    ? "bg-red-600 text-white border-red-600"
+                    : "hover:bg-gray-100 border-gray-300"
+                } transition-colors`}
+              >
+                {num}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* No results message */}
+        {filteredPackages.length === 0 && (
+          <div className="text-center py-10 text-gray-500">
+            No offers found matching your criteria.
+          </div>
+        )}
       </main>
     </div>
   );
