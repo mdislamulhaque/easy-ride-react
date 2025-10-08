@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { Link } from "react-router";
 
 export default function RentVehicle() {
   const [offers, setOffers] = useState([]);
@@ -138,9 +139,9 @@ export default function RentVehicle() {
                     <h3 className="text-lg font-bold mt-3 text-gray-900">
                       {offer.title}
                     </h3>
-                    <button className="mt-3 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-md transition-colors">
+                    <Link to={`/booking/${offer.id}`} className="mt-3 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-md transition-colors inline-block text-center">
                       TO BOOK
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </motion.div>
