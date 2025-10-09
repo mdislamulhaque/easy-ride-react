@@ -3,13 +3,14 @@
     "id": 1,
     "title": "TOYOTA RAV4",
     "description": "A stylish and powerful SUV perfect for family trips or business travel.",
-    "price": "70,000 CFA - 95,000 CFA",
+    "min_price": 90000,
+    "max_price": 120000,
     "category": "Car",
     "package": "Daily",
     "timings": [
-      { "label": "Demi-Journée", "price": 95000 },
-      { "label": "Journée complète", "price": 150000 },
-      { "label": "Week-end", "price": 250000 }
+      { "label": "Demi-Journée", "price": 120000 },
+      { "label": "Journée complète", "price": 180000 },
+      { "label": "Week-end", "price": 300000 }
     ],
     "image": "/images/green-11-e1647329968998.jpg",
     "gallery": ["/images/Toyota-RAV4.jpg", "/images/Toyota-Rush.png"],
@@ -20,13 +21,14 @@
     "id": 2,
     "title": "TOYOTA COROLLA",
     "description": "Reliable and efficient sedan, ideal for city and long-distance drives.",
-    "price": "55,000 CFA - 80,000 CFA",
+    "min_price": 80000,
+    "max_price": 110000,
     "category": "Car",
     "package": "Daily",
     "timings": [
-      { "label": "Demi-Journée", "price": 95000 },
-      { "label": "Journée complète", "price": 150000 },
-      { "label": "Week-end", "price": 250000 }
+      { "label": "Demi-Journée", "price": 110000 },
+      { "label": "Journée complète", "price": 160000 },
+      { "label": "Week-end", "price": 270000 }
     ],
     "image": "/images/Toyota-Corolla.png",
     "gallery": ["/images/Toyota-Corolla.png", "/images/Toyota-Starlet.png"],
@@ -43,13 +45,14 @@
     "id": 3,
     "title": "TOYOTA RUSH",
     "description": "Compact SUV offering comfort and versatility for family and business.",
-    "price": "65,000 CFA - 85,000 CFA",
+    "min_price": 85000,
+    "max_price": 115000,
     "category": "Car",
     "package": "Daily",
     "timings": [
-      { "label": "Demi-Journée", "price": 95000 },
-      { "label": "Journée complète", "price": 150000 },
-      { "label": "Week-end", "price": 250000 }
+      { "label": "Demi-Journée", "price": 115000 },
+      { "label": "Journée complète", "price": 170000 },
+      { "label": "Week-end", "price": 285000 }
     ],
     "image": "/images/Toyota-Rush.png",
     "gallery": ["/images/Toyota-Rush.png", "/images/Suzuki-Vitara.png"],
@@ -60,12 +63,13 @@
     "id": 4,
     "title": "TOYOTA STARLET",
     "description": "A compact car built for daily urban commuting with style.",
-    "price": "45,000 CFA - 60,000 CFA",
+    "min_price": 70000,
+    "max_price": 95000,
     "category": "Car",
     "package": "Daily",
     "timings": [
       { "label": "Demi-Journée", "price": 95000 },
-      { "label": "Journée complète", "price": 150000 },
+      { "label": "Journée complète", "price": 145000 },
       { "label": "Week-end", "price": 250000 }
     ],
     "image": "/images/Toyota-Starlet.png",
@@ -77,13 +81,14 @@
     "id": 5,
     "title": "SUZUKI DZIRE",
     "description": "A compact sedan known for comfort and reliability.",
-    "price": "50,000 CFA - 65,000 CFA",
+    "min_price": 75000,
+    "max_price": 100000,
     "category": "Car",
     "package": "Daily",
     "timings": [
-      { "label": "Demi-Journée", "price": 95000 },
+      { "label": "Demi-Journée", "price": 100000 },
       { "label": "Journée complète", "price": 150000 },
-      { "label": "Week-end", "price": 250000 }
+      { "label": "Week-end", "price": 260000 }
     ],
     "image": "/images/Suzuki-Dzire.png",
     "gallery": ["/images/Suzuki-Dzire.png", "/images/Toyota-Corolla.png"],
@@ -94,13 +99,14 @@
     "id": 6,
     "title": "SUZUKI VITARA",
     "description": "A sporty crossover with excellent performance and safety features.",
-    "price": "75,000 CFA - 90,000 CFA",
+    "min_price": 95000,
+    "max_price": 130000,
     "category": "Car",
     "package": "Daily",
     "timings": [
-      { "label": "Demi-Journée", "price": 95000 },
-      { "label": "Journée complète", "price": 150000 },
-      { "label": "Week-end", "price": 250000 }
+      { "label": "Demi-Journée", "price": 130000 },
+      { "label": "Journée complète", "price": 190000 },
+      { "label": "Week-end", "price": 320000 }
     ],
     "image": "/images/Suzuki-Vitara.png",
     "gallery": ["/images/Suzuki-Vitara.png", "/images/Toyota-RAV4.jpg"],
@@ -111,13 +117,14 @@
     "id": 7,
     "title": "Hourly Package",
     "description": "Book a car for short-distance rides charged hourly.",
-    "price": "10,000 CFA - 15,000 CFA",
+    "min_price": 20000,
+    "max_price": 40000,
     "category": "Package",
     "package": "Hourly",
     "timings": [
-      { "label": "Demi-Journée", "price": 95000 },
-      { "label": "Journée complète", "price": 150000 },
-      { "label": "Week-end", "price": 250000 }
+      { "label": "2 Hours", "price": 20000 },
+      { "label": "4 Hours", "price": 30000 },
+      { "label": "6 Hours", "price": 40000 }
     ],
     "image": "/images/Course-2h-1.jpg",
     "gallery": ["/images/Course-2h-1.jpg", "/images/Easyflash-1.jpg"],
@@ -128,12 +135,13 @@
     "id": 8,
     "title": "Daily Package",
     "description": "Perfect for full-day city rides or business schedules.",
-    "price": "70,000 CFA - 100,000 CFA",
+    "min_price": 90000,
+    "max_price": 140000,
     "category": "Package",
     "package": "Daily",
     "timings": [
-      { "label": "Demi-Journée", "price": 95000 },
-      { "label": "Journée complète", "price": 150000 },
+      { "label": "Demi-Journée", "price": 90000 },
+      { "label": "Journée complète", "price": 140000 },
       { "label": "Week-end", "price": 250000 }
     ],
     "image": "/images/Easyride-recompense-votre-fidelite.jpg",
@@ -148,13 +156,14 @@
     "id": 9,
     "title": "Weekly Package",
     "description": "Book your favorite car for an entire week at a discounted rate.",
-    "price": "350,000 CFA - 450,000 CFA",
+    "min_price": 500000,
+    "max_price": 650000,
     "category": "Package",
     "package": "Weekly",
     "timings": [
-      { "label": "Demi-Journée", "price": 95000 },
-      { "label": "Journée complète", "price": 150000 },
-      { "label": "Week-end", "price": 250000 }
+      { "label": "3 Days", "price": 350000 },
+      { "label": "5 Days", "price": 500000 },
+      { "label": "7 Days", "price": 650000 }
     ],
     "image": "/images/Easyflash-1.jpg",
     "gallery": ["/images/Easyflash-1.jpg", "/images/Easywork-1.jpg"],
@@ -165,13 +174,14 @@
     "id": 10,
     "title": "Monthly Package",
     "description": "Enjoy a full month of rides for business or personal use.",
-    "price": "1,000,000 CFA - 1,200,000 CFA",
+    "min_price": 1500000,
+    "max_price": 2000000,
     "category": "Package",
     "package": "Monthly",
     "timings": [
-      { "label": "Demi-Journée", "price": 95000 },
-      { "label": "Journée complète", "price": 150000 },
-      { "label": "Week-end", "price": 250000 }
+      { "label": "2 Weeks", "price": 1000000 },
+      { "label": "3 Weeks", "price": 1500000 },
+      { "label": "1 Month", "price": 2000000 }
     ],
     "image": "/images/Easyschool-1.jpg",
     "gallery": ["/images/Easyschool-1.jpg", "/images/Course-2h-1.jpg"],
@@ -182,13 +192,13 @@
     "id": 11,
     "title": "Airport Transfer",
     "description": "Hassle-free airport pickup and drop service with professional drivers.",
-    "price": "35,000 CFA - 45,000 CFA",
+    "min_price": 70000,
+    "max_price": 120000,
     "category": "Package",
     "package": "Airport",
     "timings": [
-      { "label": "Demi-Journée", "price": 95000 },
-      { "label": "Journée complète", "price": 150000 },
-      { "label": "Week-end", "price": 250000 }
+      { "label": "One Way", "price": 70000 },
+      { "label": "Round Trip", "price": 120000 }
     ],
     "image": "/images/Easyflash-1.jpg",
     "gallery": ["/images/airport-transfer.jpg", "/images/Toyota-Corolla.png"],
@@ -199,13 +209,13 @@
     "id": 12,
     "title": "Wedding Package",
     "description": "Luxury car booking for weddings and special occasions.",
-    "price": "200,000 CFA - 250,000 CFA",
+    "min_price": 250000,
+    "max_price": 400000,
     "category": "Package",
     "package": "Event",
     "timings": [
-      { "label": "Demi-Journée", "price": 95000 },
-      { "label": "Journée complète", "price": 150000 },
-      { "label": "Week-end", "price": 250000 }
+      { "label": "Half Day", "price": 250000 },
+      { "label": "Full Day", "price": 400000 }
     ],
     "image": "/images/Easyschool-1.jpg",
     "gallery": ["/images/wedding-car.jpg", "/images/Suzuki-Vitara.png"],

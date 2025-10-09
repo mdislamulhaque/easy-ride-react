@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router"; // Fixed import
+import { Link } from "react-router";
 
 export default function AllOfferPage() {
   const [packages, setPackages] = useState([]);
@@ -33,6 +33,19 @@ export default function AllOfferPage() {
       .finally(() => setLoading(false));
   }, []);
 
+  // ✅ Helper function to get display price (use min_price for filtering and display)
+  const getDisplayPrice = (pkg) => {
+    return pkg.min_price || 0;
+  };
+
+  // ✅ Helper function to format price for display
+  const getPriceDisplay = (pkg) => {
+    if (pkg.min_price && pkg.max_price) {
+      return `${formatPrice(pkg.min_price)} - ${formatPrice(pkg.max_price)}`;
+    }
+    return formatPrice(pkg.min_price || 0);
+  };
+
   // ✅ Apply all filters and sorting
   useEffect(() => {
     let result = [...packages];
@@ -49,14 +62,17 @@ export default function AllOfferPage() {
       result = result.filter((pkg) => pkg.category === selectedCategory);
     }
 
-    // Apply price range filter
-    result = result.filter((pkg) => parseInt(pkg.price) <= priceRange);
+    // Apply price range filter - using min_price for comparison
+    result = result.filter((pkg) => {
+      const packagePrice = getDisplayPrice(pkg);
+      return packagePrice <= priceRange;
+    });
 
     // Apply sorting
     if (sortOption === "low-to-high") {
-      result.sort((a, b) => parseInt(a.price) - parseInt(b.price));
+      result.sort((a, b) => getDisplayPrice(a) - getDisplayPrice(b));
     } else if (sortOption === "high-to-low") {
-      result.sort((a, b) => parseInt(b.price) - parseInt(a.price));
+      result.sort((a, b) => getDisplayPrice(b) - getDisplayPrice(a));
     }
     // Default: newest to oldest (assuming IDs are sequential)
     else {
@@ -102,6 +118,11 @@ export default function AllOfferPage() {
   // ✅ Format price with commas
   const formatPrice = (price) => {
     return parseInt(price).toLocaleString();
+  };
+
+  // ✅ Get package type display text
+  const getPackageType = (pkg) => {
+    return pkg.package || "Standard";
   };
 
   // ✅ Conditional rendering
@@ -271,15 +292,19 @@ export default function AllOfferPage() {
               />
               <div className="p-4">
                 <h3 className="font-bold text-lg">{pkg.title}</h3>
-                <p className="text-gray-600 mt-1">
-                  {(pkg.price)}
-                </p>
-                <p className="text-sm text-gray-500 capitalize">
-                  {pkg.category}
+                <p className="text-gray-600 mt-1">{getPriceDisplay(pkg)} C/A</p>
+                <div className="flex justify-between items-center mt-1">
+                  <p className="text-sm text-gray-500 capitalize">
+                    {pkg.category}
+                  </p>
+                  <p className="text-sm text-gray-500">{getPackageType(pkg)}</p>
+                </div>
+                <p className="text-sm text-gray-600 mt-2 line-clamp-2">
+                  {pkg.description}
                 </p>
                 <Link
                   to={`/booking/${pkg.id}`}
-                  state={{ package: pkg }} // Pass package data to booking page
+                  state={{ package: pkg }}
                   className="bg-red-600 text-white w-full py-2 mt-3 rounded inline-block text-center hover:bg-red-700 transition-colors"
                 >
                   {pkg.category === "Car"
@@ -314,6 +339,18 @@ export default function AllOfferPage() {
         {filteredPackages.length === 0 && (
           <div className="text-center py-10 text-gray-500">
             No offers found matching your criteria.
+            <br />
+            <button
+              onClick={() => {
+                setSearchTerm("");
+                setSelectedCategory("all");
+                setPriceRange(300000);
+                setSortOption("");
+              }}
+              className="mt-2 text-red-600 hover:underline"
+            >
+              Reset all filters
+            </button>
           </div>
         )}
       </main>
