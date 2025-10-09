@@ -3,7 +3,10 @@ import { Link } from "react-router";
 
 export default function MyReservation() {
   const [cart, setCart] = useState([]);
-  console.log("Cart:", cart.map((item) => item.quantity));
+  console.log(
+    "Cart:",
+    cart.map((item) => item.quantity)
+  );
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   console.log("Total Items in Cart:", totalItems);
   const totalPrice = cart.reduce(
@@ -18,7 +21,12 @@ export default function MyReservation() {
       const savedCart = JSON.parse(
         localStorage.getItem("reservationCart") || "[]"
       );
-      setCart(savedCart);
+      // Ensure totalPrice is calculated on load, in case it wasn't saved initially
+      const normalizedCart = savedCart.map((item) => ({
+        ...item,
+        totalPrice: item.price * item.quantity, // Ensure consistency
+      }));
+      setCart(normalizedCart);
     };
 
     loadCart();
@@ -32,7 +40,11 @@ export default function MyReservation() {
 
   // ✅ Update quantity (with + / - / input)
   const handleQuantityChange = (id, timing, newQuantity) => {
-    if (newQuantity < 1) return;
+    // Only allow positive quantities
+    if (newQuantity < 1) {
+      // If the user tries to go below 1, treat it as 1 to prevent empty quantity input
+      newQuantity = 1;
+    }
 
     const updatedCart = cart.map((item) =>
       item.id === id && item.timing === timing
@@ -77,10 +89,11 @@ export default function MyReservation() {
     );
   };
 
-  // 🧮 Subtotal & Total হিসাব
+  // 🧮 Subtotal & Total হিসাব (using the calculated totalPrice from the state items)
   const subtotal = cart.reduce((acc, item) => acc + (item.totalPrice || 0), 0);
-  const total = subtotal;
   const totalItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+  console.log("Subtotal:", subtotal);
 
   if (cart.length === 0) {
     return (
@@ -117,7 +130,7 @@ export default function MyReservation() {
         <h1 className="text-3xl font-bold">My reservations</h1>
         <p className="text-gray-300 mt-2">
           Total Items: {totalItemsCount} | Total Amount:{" "}
-          {totalPrice} CFA
+          {subtotal.toLocaleString()} CFA {/* Changed to use subtotal/total */}
         </p>
       </div>
 
@@ -219,9 +232,11 @@ export default function MyReservation() {
                       </button>
                     </div>
                   </td>
+                  {/* 👇 THE FIX IS HERE: Use item.totalPrice instead of recalculating */}
                   <td className="p-3 text-gray-700 font-semibold">
-                    {item.quantity*item.price} CFA
+                    {item.totalPrice.toLocaleString()} CFA
                   </td>
+                  {/* 👆 END OF FIX */}
                 </tr>
               ))}
             </tbody>
@@ -237,16 +252,12 @@ export default function MyReservation() {
                 <span className="font-medium">Total Items:</span>
                 <span>{totalItemsCount}</span>
               </div>
-              {/* <div className="flex justify-between border-t pt-2">
-                <span className="font-medium">Subtotal</span>
-                <span className="text-red-600 font-semibold">
-                  {total} CFA
-                </span>
-              </div> */}
               <div className="flex justify-between border-t pt-2">
                 <span className="font-medium">Total</span>
                 <span className="text-red-600 font-semibold text-lg">
-                  {totalPrice} CFA
+                  {subtotal} CFA{" "}
+                  {/* Changed to use subtotal */}
+                  {console.log("Rendering Total:", subtotal)}
                 </span>
               </div>
             </div>
