@@ -53,7 +53,7 @@ export default function HeroSlider() {
               {slide.title}
             </h2> */}
             {/* <p className="mb-6 text-lg md:text-2xl">{slide.description}</p> */}
-            <Link to={"/"} className="bg-gray-900 hover:bg-gray-950 px-4 md:px-8 py-2 md:py-3 rounded md:font-bold uppercase  md:text-3xl">
+            <Link to={"/all-offers"} className="bg-gray-900 hover:bg-gray-950 px-4 md:px-8 py-2 md:py-3 rounded md:font-bold uppercase  md:text-3xl">
               Book Now
             </Link>
           </div>
