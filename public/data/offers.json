@@ -6,10 +6,10 @@
     "min_price": 90000,
     "max_price": 120000,
     "category": "Car",
-    "package": "Daily",
+    "package": "",
     "timings": [
-      { "label": "Demi-Journée", "price": 120000 },
-      { "label": "Journée complète", "price": 180000 },
+      { "label": "1-H", "price": 120000 },
+      { "label": "6-H", "price": 180000 },
       { "label": "Week-end", "price": 300000 }
     ],
     "image": "/images/green-11-e1647329968998.jpg",
@@ -24,7 +24,7 @@
     "min_price": 80000,
     "max_price": 110000,
     "category": "Car",
-    "package": "Daily",
+    "package": "",
     "timings": [
       { "label": "Demi-Journée", "price": 110000 },
       { "label": "Journée complète", "price": 160000 },
@@ -48,7 +48,7 @@
     "min_price": 85000,
     "max_price": 115000,
     "category": "Car",
-    "package": "Daily",
+    "package": "",
     "timings": [
       { "label": "Demi-Journée", "price": 115000 },
       { "label": "Journée complète", "price": 170000 },
@@ -66,7 +66,7 @@
     "min_price": 70000,
     "max_price": 95000,
     "category": "Car",
-    "package": "Daily",
+    "package": "",
     "timings": [
       { "label": "Demi-Journée", "price": 95000 },
       { "label": "Journée complète", "price": 145000 },
@@ -84,7 +84,7 @@
     "min_price": 75000,
     "max_price": 100000,
     "category": "Car",
-    "package": "Daily",
+    "package": "",
     "timings": [
       { "label": "Demi-Journée", "price": 100000 },
       { "label": "Journée complète", "price": 150000 },
@@ -102,7 +102,7 @@
     "min_price": 95000,
     "max_price": 130000,
     "category": "Car",
-    "package": "Daily",
+    "package": "",
     "timings": [
       { "label": "Demi-Journée", "price": 130000 },
       { "label": "Journée complète", "price": 190000 },
@@ -122,9 +122,9 @@
     "category": "Package",
     "package": "Hourly",
     "timings": [
-      { "label": "2 Hours", "price": 20000 },
-      { "label": "4 Hours", "price": 30000 },
-      { "label": "6 Hours", "price": 40000 }
+      { "label": "Toyota", "price": 20000 },
+      { "label": "Suzuki", "price": 30000 },
+      { "label": "Honda", "price": 40000 }
     ],
     "image": "/images/Course-2h-1.jpg",
     "gallery": ["/images/Course-2h-1.jpg", "/images/Easyflash-1.jpg"],
@@ -136,13 +136,13 @@
     "title": "Daily Package",
     "description": "Perfect for full-day city rides or business schedules.",
     "min_price": 90000,
-    "max_price": 140000,
+    "max_price": 250000,
     "category": "Package",
     "package": "Daily",
     "timings": [
-      { "label": "Demi-Journée", "price": 90000 },
-      { "label": "Journée complète", "price": 140000 },
-      { "label": "Week-end", "price": 250000 }
+      { "label": "Toyota", "price": 90000 },
+      { "label": "Suzuki", "price": 140000 },
+      { "label": "Honda", "price": 250000 }
     ],
     "image": "/images/Easyride-recompense-votre-fidelite.jpg",
     "gallery": [
@@ -161,9 +161,9 @@
     "category": "Package",
     "package": "Weekly",
     "timings": [
-      { "label": "3 Days", "price": 350000 },
-      { "label": "5 Days", "price": 500000 },
-      { "label": "7 Days", "price": 650000 }
+      { "label": "Toyota", "price": 350000 },
+      { "label": "Suzuki", "price": 500000 },
+      { "label": "Honda", "price": 650000 }
     ],
     "image": "/images/Easyflash-1.jpg",
     "gallery": ["/images/Easyflash-1.jpg", "/images/Easywork-1.jpg"],
@@ -179,9 +179,9 @@
     "category": "Package",
     "package": "Monthly",
     "timings": [
-      { "label": "2 Weeks", "price": 1000000 },
-      { "label": "3 Weeks", "price": 1500000 },
-      { "label": "1 Month", "price": 2000000 }
+      { "label": "Corolla", "price": 1000000 },
+      { "label": "Noah", "price": 1500000 },
+      { "label": "X-Noah", "price": 2000000 }
     ],
     "image": "/images/Easyschool-1.jpg",
     "gallery": ["/images/Easyschool-1.jpg", "/images/Course-2h-1.jpg"],
@@ -197,8 +197,8 @@
     "category": "Package",
     "package": "Airport",
     "timings": [
-      { "label": "One Way", "price": 70000 },
-      { "label": "Round Trip", "price": 120000 }
+      { "label": "Primio", "price": 70000 },
+      { "label": "Honda", "price": 120000 }
     ],
     "image": "/images/Easyflash-1.jpg",
     "gallery": ["/images/airport-transfer.jpg", "/images/Toyota-Corolla.png"],
@@ -214,8 +214,8 @@
     "category": "Package",
     "package": "Event",
     "timings": [
-      { "label": "Half Day", "price": 250000 },
-      { "label": "Full Day", "price": 400000 }
+      { "label": "Suzuki", "price": 250000 },
+      { "label": "Corolla", "price": 400000 }
     ],
     "image": "/images/Easyschool-1.jpg",
     "gallery": ["/images/wedding-car.jpg", "/images/Suzuki-Vitara.png"],
