@@ -151,13 +151,13 @@ export default function RentVehicle() {
           {/* Navigation buttons */}
           <button
             onClick={prevSlide}
-            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-colors"
+            className="absolute left-0 md:left-2 md:top-1/2 md:-translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-colors h-12 w-12 flex items-center justify-center"
           >
             &#10094;
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-colors"
+            className="absolute right-0 md:right-2 md:top-1/2 md:-translate-y-1/2 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition-colors h-12 w-12 flex items-center justify-center"
           >
             &#10095;
           </button>
