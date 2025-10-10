@@ -364,7 +364,7 @@ export default function AllOfferPage() {
           {currentItems.map((pkg) => (
             <div
               key={pkg.id}
-              className="rounded-xl overflow-hidden shadow hover:shadow-sm transition-shadow hover:shadow-red-700 cursor-pointer"
+              className="flex flex-col rounded-xl overflow-hidden shadow hover:shadow-sm transition-shadow hover:shadow-red-700 cursor-pointer h-full"
             >
               <img
                 src={pkg.image}
@@ -372,18 +372,23 @@ export default function AllOfferPage() {
                 className="w-full h-64 object-cover"
                 onError={(e) => (e.target.src = "/images/placeholder.png")}
               />
-              <div className="p-4">
+
+              {/* Make the inner content stretch evenly */}
+              <div className="flex flex-col flex-grow p-4">
                 <h3 className="font-bold text-lg">{pkg.title}</h3>
                 <p className="text-gray-600 mt-1">{getPriceDisplay(pkg)} C/A</p>
-                <div className="flex justify-between items-center mt-1">
+
+                <div className="flex gap-6 items-center mt-1">
                   <p className="text-sm text-gray-500 capitalize">
                     {pkg.category}
                   </p>
                   <p className="text-sm text-gray-500">{getPackageType(pkg)}</p>
                 </div>
+
                 <p className="text-sm text-gray-600 mt-2 line-clamp-2">
                   {pkg.description}
                 </p>
+
                 {pkg.tags && pkg.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1 mt-2">
                     {pkg.tags.slice(0, 3).map((tag) => (
@@ -396,10 +401,14 @@ export default function AllOfferPage() {
                     ))}
                   </div>
                 )}
+
+                {/* This pushes the button to the bottom */}
+                <div className="flex-grow"></div>
+
                 <Link
                   to={`/booking/${pkg.id}`}
                   state={{ package: pkg }}
-                  className="bg-red-600 text-white w-full py-2 mt-3 rounded inline-block text-center hover:bg-red-700 transition-colors"
+                  className="bg-red-600 text-white w-full py-2 mt-3 rounded text-center hover:bg-red-700 transition-colors"
                 >
                   {pkg.category === "Car"
                     ? "Choice of Vehicle"

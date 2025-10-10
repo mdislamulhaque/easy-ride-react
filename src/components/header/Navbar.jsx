@@ -54,17 +54,17 @@ export default function NavBar() {
   }, []);
 
   return (
-    <nav className="bg-white shadow-md">
-      <div className="max-w-8xl mx-auto flex items-center justify-between px-4 py-3">
+    <nav className="bg-white">
+      <div className="max-w-8xl mx-auto flex items-center justify-between px-4 py-2">
         {/* Logo */}
         <div className="text-xl font-bold text-black">
-          <a href="/" className="hover:text-indigo-600 transition">
+          <Link to={"/"} className="hover:text-indigo-600 transition">
             <img
-              className="h-16"
+              className="h-18 w-28 object-contain"
               src="/images/easy-ride.png"
               alt="logo-easy-ride"
             />
-          </a>
+          </Link>
         </div>
 
         {/* Desktop Menu */}

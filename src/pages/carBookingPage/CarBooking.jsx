@@ -298,7 +298,7 @@ export default function CarBookingPage() {
                 </div>
                 <div className="flex justify-between border-t pt-1 font-semibold text-lg text-red-600">
                   <span>Total Price:</span>
-                  <span>{(basePrice * quantity).toLocaleString()} CFA</span>
+                  <span>{(basePrice * quantity)} CFA</span>
                 </div>
               </div>
             </div>
