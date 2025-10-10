@@ -1,6 +1,8 @@
 [
-  { "id": 1, "title": "Legal Notices", "link": "/legal" },
-  { "id": 2, "title": "FAQs", "link": "/faqs" },
-  { "id": 3, "title": "Privacy Policy", "link": "/policy" },
-  { "id": 4, "title": "Login", "link": "/login" }
+  { "id": 1, "title": "Reservation", "link": "/reservation" },
+  { "id": 2, "title": "Subscription", "link": "/subscription" },
+  { "id": 3, "title": "Legal Notices", "link": "/legal" },
+  { "id": 4, "title": "FAQs", "link": "/faqs" },
+  { "id": 5, "title": "Privacy Policy", "link": "/policy" },
+  { "id": 6, "title": "Login", "link": "/login" }
 ]

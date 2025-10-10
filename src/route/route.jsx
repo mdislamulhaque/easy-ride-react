@@ -6,6 +6,7 @@ import CarBookingPage from "../pages/carBookingPage/CarBooking";
 import MyReservation from "../pages/myReservation/MyReservation";
 import CheckoutPage from "../pages/checkoutPage/CheckOutPage";
 import AllOfferPage from "../pages/AllOfferPage/AllOfferPage";
+import SubscriptionPage from "../pages/subscription/SubcriptionPage";
 
 
 
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/checkout",
         element: <CheckoutPage />,
+      },
+      {
+        path: "/subscription",
+        element: <SubscriptionPage />,
       },
 
       {
