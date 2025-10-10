@@ -364,12 +364,12 @@ export default function AllOfferPage() {
           {currentItems.map((pkg) => (
             <div
               key={pkg.id}
-              className="rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow border"
+              className="rounded-xl overflow-hidden shadow hover:shadow-sm transition-shadow hover:shadow-red-700 cursor-pointer"
             >
               <img
                 src={pkg.image}
                 alt={pkg.title}
-                className="w-full h-40 object-cover"
+                className="w-full h-64 object-cover"
                 onError={(e) => (e.target.src = "/images/placeholder.png")}
               />
               <div className="p-4">
